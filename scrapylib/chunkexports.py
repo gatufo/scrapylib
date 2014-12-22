@@ -87,11 +87,6 @@ class ChunkedFeedExporter(FeedExporter):
             # Item in current chunk, normal call
             return super(ChunkedFeedExporter, self).item_scraped(item, spider)
 
-    def _reset_exporter(self, spider):
-        self.close_spider(spider)
-        self._chunk_number += 1
-        self.open_spider(spider)
-
     def _get_from_settings_or_environ(self, name, default):
         return self.settings.get(name=name, default=os.environ.get(name, default))
 
