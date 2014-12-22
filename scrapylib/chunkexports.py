@@ -76,11 +76,16 @@ class ChunkedFeedExporter(FeedExporter):
         })
 
     def item_scraped(self, item, spider):
-        if self._items_per_chunk and self.slot.itemcount >= self._items_per_chunk:
-            self._reset_exporter(spider)
-        item = super(ChunkedFeedExporter, self).item_scraped(item, spider)
-        return item
-
+        if self._items_per_chunk and self.slot.itemcount+1 > self._items_per_chunk:
+            # Item must be in next chunk, close current chunk and create a new one
+            d = self.close_spider(spider)
+            self._chunk_number += 1
+            self.open_spider(spider)
+            super(ChunkedFeedExporter, self).item_scraped(item, spider)
+            return d
+        else:
+            # Item in current chunk, normal call
+            return super(ChunkedFeedExporter, self).item_scraped(item, spider)
 
     def _reset_exporter(self, spider):
         self.close_spider(spider)
