@@ -3,3 +3,4 @@ hubstorage
 python-dateutil
 scrapinghub
 Scrapy>=0.22.0
+streamcorpus
