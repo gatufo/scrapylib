@@ -66,7 +66,8 @@ METADATA_FIELDS = [
     'emails_count',
 ]
 
-def load_item_from_values(values, debug=False):
+
+def load_item_from_values(values):
     request = Request(values['url'])
     response = TextResponse(url=values['url'],
                             status=values['http_status'],
