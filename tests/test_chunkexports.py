@@ -67,7 +67,7 @@ class ChunkExtensionTest(object):
         shutil.rmtree(EXPORT_TEMP_DIR, ignore_errors=True)
 
     def add_items(self, n_items):
-        for i in range(1, n_items+1):
+        for i in range(n_items):
             item = ItemGenerator.generate()
             self.extension.item_scraped(item, self.spider)
 
